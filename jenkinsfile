@@ -1,0 +1,42 @@
+pipeline {
+ agent any
+ stages{
+ stage('clean-up') {
+  steps {
+      sh 'rm -rf QRPA'
+  }
+ }
+ stage('checkout') {
+  steps {
+      sh 'git clone https://github.com/githubagu/QRPA.git'
+  }
+ }
+ stage('build') {
+     steps {
+       sh 'docker build -t agudesmond/qrpa QRPA'
+  }
+ } 
+ stage('push') {
+   steps{
+    withCredentials([usernamePassword(credentialsId: 'dockerpwd', usernameVariable: 'aguuser', passwordVariable: 'agupass' )]) {
+        sh '''
+             
+              docker login -u "$aguuser" -p "$agupass"
+              docker push agudesmond/qrpa
+            '''
+          }
+   }
+ }
+ stage('deploy') {
+     steps {
+         sh 'aws ecs update-service --cluster DES-CLUSTER --service DesServ --force-new-deployment --region ca-central-1'
+     }
+ }
+ stage('remove image') {
+     steps {
+         sh 'docker rmi agudesmond/qrpa'
+     }
+ }
+ 
+ }
+}
