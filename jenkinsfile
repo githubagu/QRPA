@@ -1,19 +1,10 @@
 pipeline {
  agent any
  stages{
- stage('clean-up') {
-  steps {
-      sh 'rm -rf QRPA'
-  }
- }
- stage('checkout') {
-  steps {
-      sh 'git clone https://github.com/githubagu/QRPA.git'
-  }
- }
+
  stage('build') {
      steps {
-       sh 'docker build -t agudesmond/qrpa QRPA'
+       sh 'docker build -t agudesmond/qrpa .'
   }
  } 
  stage('push') {
