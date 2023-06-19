@@ -29,7 +29,8 @@ pipeline {
  }
  stage('deploy') {
      steps {
-         sh 'aws ecs update-service --cluster DES-CLUSTER --service DesServ --force-new-deployment --region ca-central-1'
+         sh "echo deployment finale"
+         // sh 'aws ecs update-service --cluster DES-CLUSTER --service DesServ --force-new-deployment --region ca-central-1'
      }
  }
  stage('remove image') {
