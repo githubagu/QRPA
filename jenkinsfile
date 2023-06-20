@@ -7,12 +7,12 @@ stage('build') {
   }
  } 
 stage('sonarqube analysis') {
-  environment {
-       SCANNER-HOME = tool 'sonar-scanner'
-}
+//  environment {
+  //     SCANNER-HOME = tool 'sonar-scanner'
+//}
 
      steps {
-         withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'MYSCANNER') {
+         withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'ata') {
        sh ''' 
         sonar-scanner \
        -Dsonar.organization=desmond-org \
