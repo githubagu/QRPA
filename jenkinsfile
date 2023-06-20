@@ -9,6 +9,7 @@ stage('build') {
 stage('sonarqube analysis') {
   environment {
        SCANNER-HOME = tool 'sonar-scanner'
+}
 
      steps {
          withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'MYSCANNER') {
