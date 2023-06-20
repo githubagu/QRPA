@@ -7,6 +7,7 @@ stage('build') {
   }
  } 
 stage('sonarqube analysis') {
+def scannerHome = tool 'SonarScanner 4.0';
 //  environment {
   //     SCANNER-HOME = tool 'sonar-scanner'
 //}
@@ -14,8 +15,8 @@ stage('sonarqube analysis') {
      steps {
          withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'ata') {
        sh ''' 
-        sonar-scanner \
-       -Dsonar.organization=desmond-org \
+        ${scannerHome}/bin/sonar-scanner \
+       -Dsonar.organization=desmond-org\
        -Dsonar.projectKey=desmond-org_qrpa \
        -Dsonar.sources=. \
        -Dsonar.host.url=https://sonarcloud.io
