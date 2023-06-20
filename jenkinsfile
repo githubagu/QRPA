@@ -7,10 +7,10 @@ stage('build') {
   }
  } 
 stage('sonarqube analysis') {
-def scannerHome = tool 'SonarScanner 4.0';
-//  environment {
-  //     SCANNER-HOME = tool 'sonar-scanner'
-//}
+//def scannerHome = tool 'SonarScanner 4.0';
+  environment {
+      scannerHome = tool "MYSCANNER"
+}
 
      steps {
          withSonarQubeEnv(credentialsId: 'SONAR_TOKEN', installationName: 'ata') {
